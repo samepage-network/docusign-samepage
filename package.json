@@ -1,0 +1,32 @@
+{
+  "name": "docusign-samepage",
+  "version": "1.0.0",
+  "description": "Official Docusign client into the inter-tool protocol, SamePage.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "postinstall": "patch-package --patch-dir node_modules/samepage/patches",
+    "start": "npx samepage dev",
+    "test": "npx samepage test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samepage-network/docusign-samepage.git"
+  },
+  "keywords": [
+    "Docusign",
+    "SamePage"
+  ],
+  "author": {
+    "name": "SamePage",
+    "email": "support@samepage.network",
+    "url": "https://samepage.network"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samepage-network/docusign-samepage/issues"
+  },
+  "homepage": "https://github.com/samepage-network/docusign-samepage#readme",
+  "dependencies": {
+    "samepage": "^0.59.8"
+  }
+}
