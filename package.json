@@ -27,6 +27,23 @@
   },
   "homepage": "https://github.com/samepage-network/docusign-samepage#readme",
   "dependencies": {
-    "samepage": "^0.59.8"
+    "samepage": "^0.62.11"
+  },
+  "samepage": {
+    "install": {
+      "steps": [
+        {
+          "title": "Connect your account",
+          "children": "link",
+          "props": {
+            "href": "https://account-d.docusign.com/oauth/auth?response_type=code&client_id=&redirect_uri=https://samepage.network/oauth/docusign"
+          }
+        },
+        {
+          "title": "Select Accessible Pages",
+          "children": "image"
+        }
+      ]
+    }
   }
 }

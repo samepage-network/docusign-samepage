@@ -8,20 +8,21 @@ const logic = async (
 ): Promise<z.infer<typeof zOauthResponse>> => {
   const { data } = await axios
     .post<{ access_token: string }>(
-      // TODO - REPLACE THIS WITH THE URL OF THE APP's OAUTH PROVIDER
-      `https://api.samepage.network/oauth`,
+      `https://account-d.docusign.com/oauth/token`,
       {
         code: args.code,
         redirect_uri:
           process.env.NODE_ENV === "production"
-            ? "https://samepage.network/oauth/github"
-            : "https://samepage.ngrok.io/oauth/github",
-        client_id: process.env.OAUTH_CLIENT_ID,
-        client_secret: process.env.OAUTH_CLIENT_SECRET,
+            ? "https://samepage.network/oauth/docusign"
+            : "https://samepage.ngrok.io/oauth/docusign",
+        grant_type: "authorization_code",
       },
       {
         headers: {
           Accept: "application/json",
+          Authorization: `Basic ${Buffer.from(
+            `${process.env.OAUTH_CLIENT_ID}:${process.env.OAUTH_CLIENT_SECRET}`
+          ).toString("base64")}`,
         },
       }
     )
@@ -31,8 +32,16 @@ const logic = async (
       )
     );
   const { access_token } = data;
-  // @ts-ignore - TODO - REPLACE THIS WITH THE CODE TO GET THE WORKSPACE NAME
-  const workspace = await getWorkspaceNameUsingAccessToken(access_token);
+  const workspace = await axios
+    .get<{ accounts: { account_name: string; account_id: string }[] }>(
+      `https://account-d.docusign.com/oauth/userinfo`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    )
+    .then((r) => r.data.accounts[0].account_name);
   return {
     accessToken: access_token,
     workspace,
