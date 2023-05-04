@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/samepage-network/docusign-samepage#readme",
   "dependencies": {
-    "samepage": "^0.64.5"
+    "samepage": "^0.65.5"
   },
   "samepage": {
     "install": {
@@ -41,7 +41,10 @@
         },
         {
           "title": "Select Accessible Pages",
-          "children": "image"
+          "children": "image",
+          "props": {
+            "src": "/assets/docusign/allow-access.png"
+          }
         }
       ]
     }

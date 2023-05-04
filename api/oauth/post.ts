@@ -32,7 +32,7 @@ const logic = async (
       )
     );
   const { access_token } = data;
-  const workspace = await axios
+  const account = await axios
     .get<{ accounts: { account_name: string; account_id: string }[] }>(
       `https://account-d.docusign.com/oauth/userinfo`,
       {
@@ -41,10 +41,11 @@ const logic = async (
         },
       }
     )
-    .then((r) => r.data.accounts[0].account_name);
+    .then((r) => r.data.accounts[0]);
   return {
     accessToken: access_token,
-    workspace,
+    workspace: account.account_id,
+    label: account.account_name,
   };
 };
 
